@@ -23,4 +23,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --collect "XPlat Code coverage"
+    - name: Report
+      run: | 
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator -reports:$(Agent.WorkFolder)/**/coverage.cobertura.xml -targetdig:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
     
